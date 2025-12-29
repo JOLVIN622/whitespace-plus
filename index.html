@@ -5,30 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>留白＋ | 內容策劃．視覺設計．AI 整合</title>
 
+  <!-- SEO -->
+  <meta name="description" content="留白＋：內容策劃、視覺設計、AI 整合。協助品牌與創作者把雜亂變清晰，把想法變成可用的成果。" />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="留白＋ | 內容策劃．視覺設計．AI 整合" />
+  <meta property="og:description" content="內容策劃・視覺設計・AI 整合，協助你把雜亂變清晰，把想法變成可用的成果。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://i.postimg.cc/02rYHSWQ/LOGO.png" />
+  <!-- 你如果有正式網域，建議把下面兩個改成你的網址 -->
+  <meta property="og:url" content="" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="留白＋ | 內容策劃．視覺設計．AI 整合" />
+  <meta name="twitter:description" content="內容策劃・視覺設計・AI 整合，協助你把雜亂變清晰，把想法變成可用的成果。" />
+  <meta name="twitter:image" content="https://i.postimg.cc/02rYHSWQ/LOGO.png" />
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
 
   <style>
     body { font-family: 'Noto Sans TC', sans-serif; scroll-behavior: smooth; }
     .hero-gradient { background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
-    .service-card { cursor: pointer; transition: all 0.3s ease; border: 1px solid #f1f5f9; height: 100%; display: flex; flex-direction: column; }
-    .service-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); border-color: #3b82f6; }
 
-    .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(8px); }
-    .modal-content { background: white; margin: 5% auto; padding: 30px; border-radius: 24px; max-width: 640px; width: 92%; position: relative; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
+    .service-card { cursor: pointer; transition: all 0.25s ease; border: 1px solid #f1f5f9; height: 100%; display: flex; flex-direction: column; }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06); border-color: #3b82f6; }
+    .focus-ring:focus { outline: none; box-shadow: 0 0 0 4px rgba(59,130,246,0.25); }
 
-    .img-placeholder { background-color: #f3f4f6; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 12px; }
+    /* Modal */
+    .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(8px); }
+    .modal[aria-hidden="false"] { display: block; }
+    .modal-content { background: white; margin: 5% auto; padding: 28px; border-radius: 24px; max-width: 720px; width: 92%; position: relative; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
+    .img-placeholder { background-color: #f3f4f6; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 16px; }
+
+    /* Mobile horizontal snap scroller */
+    .snap-x { scroll-snap-type: x mandatory; }
+    .snap-start { scroll-snap-align: start; }
+
+    /* Prevent iOS overscroll background when modal open */
+    .no-scroll { overflow: hidden; height: 100vh; }
   </style>
 </head>
 
 <body class="bg-white text-slate-800">
 
-  <!-- Language Toggle (4 languages) -->
+  <!-- Language Toggle -->
   <div class="fixed top-4 right-6 z-[60] flex gap-2 text-sm font-medium">
-    <button id="btnZhHant" onclick="setLang('zh-Hant')" class="px-3 py-1 rounded-full bg-slate-900 text-white">繁中</button>
-    <button id="btnEn" onclick="setLang('en')" class="px-3 py-1 rounded-full bg-slate-200 text-slate-800">EN</button>
-    <button id="btnZhHans" onclick="setLang('zh-Hans')" class="px-3 py-1 rounded-full bg-slate-200 text-slate-800">简中</button>
-    <button id="btnMs" onclick="setLang('ms')" class="px-3 py-1 rounded-full bg-slate-200 text-slate-800">BM</button>
+    <button id="btnZhHant" onclick="setLang('zh-Hant')" class="px-3 py-1 rounded-full bg-slate-900 text-white focus-ring">繁中</button>
+    <button id="btnEn" onclick="setLang('en')" class="px-3 py-1 rounded-full bg-slate-200 text-slate-800 focus-ring">EN</button>
+    <button id="btnZhHans" onclick="setLang('zh-Hans')" class="px-3 py-1 rounded-full bg-slate-200 text-slate-800 focus-ring">简中</button>
+    <button id="btnMs" onclick="setLang('ms')" class="px-3 py-1 rounded-full bg-slate-200 text-slate-800 focus-ring">BM</button>
   </div>
 
   <!-- NAV -->
@@ -40,283 +68,433 @@
       </div>
 
       <div class="hidden md:flex items-center space-x-8 text-sm font-medium mr-4">
-        <a href="#about" class="hover:text-blue-600 transition">
+        <a href="#about" class="hover:text-blue-600 transition focus-ring rounded-md px-2 py-1">
           <span data-i18n="nav.about">品牌介紹</span>
         </a>
-        <a href="#services" class="hover:text-blue-600 transition">
+        <a href="#services" class="hover:text-blue-600 transition focus-ring rounded-md px-2 py-1">
           <span data-i18n="nav.services">服務項目</span>
         </a>
-        <a href="#contact" class="px-5 py-2 bg-slate-900 text-white rounded-full hover:bg-blue-600 transition">
+        <a href="#contact" class="px-5 py-2 bg-slate-900 text-white rounded-full hover:bg-blue-600 transition focus-ring">
           <span data-i18n="nav.contact">立即諮詢</span>
         </a>
       </div>
+
+      <!-- Mobile quick CTA -->
+      <a href="#contact" class="md:hidden px-4 py-2 bg-slate-900 text-white rounded-full text-sm font-semibold hover:bg-blue-600 transition focus-ring">
+        <span data-i18n="nav.contact">立即諮詢</span>
+      </a>
     </div>
   </nav>
 
   <!-- HERO -->
-  <section class="pt-40 pb-24 hero-gradient px-6">
+  <section class="pt-32 md:pt-40 pb-16 md:pb-24 hero-gradient px-6">
     <div class="max-w-4xl mx-auto text-center">
-      <div class="mb-10 flex justify-center">
+      <div class="mb-8 md:mb-10 flex justify-center">
+        <!-- Hero logo keep eager (not lazy) -->
         <img src="https://i.postimg.cc/02rYHSWQ/LOGO.png"
-             class="w-48 h-48 md:w-64 md:h-64 rounded-full shadow-2xl border-8 border-white object-cover"
+             class="w-32 h-32 md:w-64 md:h-64 rounded-full shadow-2xl border-8 border-white object-cover"
              alt="Logo">
       </div>
 
-      <h2 class="text-sm tracking-[0.4em] text-blue-600 font-bold mb-4 uppercase" data-i18n="hero.kicker">
+      <h2 class="text-xs md:text-sm tracking-[0.4em] text-blue-600 font-bold mb-3 md:mb-4 uppercase" data-i18n="hero.kicker">
         內容與設計整合
       </h2>
 
-      <h1 class="text-4xl md:text-6xl font-bold text-slate-900 mb-8 leading-tight">
+      <h1 class="text-3xl md:text-6xl font-bold text-slate-900 mb-5 md:mb-8 leading-tight">
         <span data-i18n="hero.titleA">把想法整理成</span>
         <span class="text-slate-400 font-light italic" data-i18n="hero.titleB">質感的成果。</span>
       </h1>
 
-      <p class="text-slate-500 leading-relaxed max-w-2xl mx-auto" data-i18n="hero.desc">
+      <p class="text-slate-500 leading-relaxed max-w-2xl mx-auto mb-8 md:mb-0" data-i18n="hero.desc">
         內容策劃・視覺設計・AI 整合，協助你把雜亂變清晰，把想法變成可用的成果。
       </p>
+
+      <!-- Mobile: CTA earlier -->
+      <div class="md:hidden mt-8 flex flex-col gap-3 items-center">
+        <a href="#services" class="w-full max-w-sm px-8 py-4 rounded-full bg-white text-slate-900 font-bold shadow-sm border border-slate-200 hover:border-blue-500 transition focus-ring">
+          <span data-i18n="hero.ctaServices">先看服務與案例</span>
+        </a>
+        <a id="waLinkTop"
+           href="https://wa.me/60166262464?text=你好，我想諮詢服務"
+           target="_blank"
+           class="w-full max-w-sm px-8 py-4 rounded-full bg-green-500 text-white font-bold shadow-sm hover:scale-[1.01] transition transform focus-ring">
+          <span data-i18n="contact.cta">WhatsApp 立即諮詢</span>
+        </a>
+        <p class="text-xs text-slate-400" data-i18n="hero.note">回覆通常很快，先把需求丟過來就好。</p>
+      </div>
     </div>
   </section>
 
   <!-- ABOUT -->
-  <section id="about" class="py-24 bg-white px-6">
-    <div class="max-w-4xl mx-auto border-y border-slate-100 py-16">
-      <div class="flex flex-col md:flex-row gap-12 items-start">
+  <section id="about" class="scroll-mt-28 py-16 md:py-24 bg-white px-6">
+    <div class="max-w-4xl mx-auto border-y border-slate-100 py-12 md:py-16">
+      <div class="flex flex-col md:flex-row gap-10 md:gap-12 items-start">
         <div class="md:w-1/3">
           <h3 class="text-2xl font-bold text-slate-900 mb-2" data-i18n="about.title">品牌介紹</h3>
           <p class="text-blue-600 font-medium tracking-widest uppercase text-xs" data-i18n="about.subtitle">About Whitespace +</p>
         </div>
 
         <div class="md:w-2/3">
-          <p class="text-2xl text-slate-900 leading-snug mb-8 font-light">
+          <p class="text-xl md:text-2xl text-slate-900 leading-snug mb-6 md:mb-8 font-light">
             <span data-i18n="about.lead1">留白，不是空白，</span><br>
             <span class="font-bold text-blue-600" data-i18n="about.lead2">而是讓重要的東西留下來。</span>
           </p>
 
-          <div class="space-y-6 text-slate-600 leading-loose">
-            <p data-i18n="about.p1">
-              「留白 Whitespace +」是一個專注於內容整理、結構優化與視覺呈現的創作與顧問型服務品牌。
-              協助品牌、商家與創作者，把零散的想法、模糊的概念與雜亂的素材，整理成清楚、有層次、能被理解、也能被使用的內容成果。
-            </p>
+          <!-- Mobile: collapsed -->
+          <div class="md:hidden">
+            <details class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <summary class="cursor-pointer font-bold text-slate-900 focus-ring rounded-lg px-2 py-2" data-i18n="about.expand">
+                展開品牌介紹與服務範圍
+              </summary>
+              <div class="mt-4 space-y-5 text-slate-600 leading-loose">
+                <p data-i18n="about.p1"></p>
+                <p data-i18n="about.p2"></p>
 
-            <p data-i18n="about.p2">
-              在資訊過載的時代，我們不追求過度包裝與堆疊，而是回到本質，找出真正重要的訊息，留下剛剛好的內容與空間。
-            </p>
+                <div class="pt-2">
+                  <h4 class="text-slate-900 font-bold mb-4 flex items-center">
+                    <span class="w-8 h-[1px] bg-blue-600 mr-3"></span>
+                    <span data-i18n="about.whatWeDo">我們在做什麼</span>
+                  </h4>
 
-            <div class="py-8 my-6">
+                  <ul class="space-y-2 text-sm">
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span><span data-i18n="about.list1"></span></li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span><span data-i18n="about.list2"></span></li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span><span data-i18n="about.list3"></span></li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span><span data-i18n="about.list4"></span></li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span><span data-i18n="about.list5"></span></li>
+                  </ul>
+                </div>
+
+                <p class="italic text-slate-500 border-l-2 border-slate-200 pl-4" data-i18n="about.quote"></p>
+
+                <div class="pt-4">
+                  <p class="text-lg font-bold text-slate-900 mb-2" data-i18n="about.weBelieve"></p>
+                  <p class="text-slate-600">
+                    <span data-i18n="about.belief1"></span><br>
+                    <span class="text-blue-600 font-medium" data-i18n="about.belief2"></span>
+                  </p>
+                </div>
+              </div>
+            </details>
+          </div>
+
+          <!-- Desktop: full -->
+          <div class="hidden md:block space-y-6 text-slate-600 leading-loose">
+            <p data-i18n="about.p1"></p>
+            <p data-i18n="about.p2"></p>
+
+            <div class="py-6 my-4">
               <h4 class="text-slate-900 font-bold mb-6 flex items-center">
                 <span class="w-8 h-[1px] bg-blue-600 mr-3"></span>
                 <span data-i18n="about.whatWeDo">我們在做什麼</span>
               </h4>
 
               <ul class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 text-sm">
-                <li class="flex items-center gap-2">
-                  <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
-                  <span data-i18n="about.list1">內容梳理與結構重組</span>
-                </li>
-                <li class="flex items-center gap-2">
-                  <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
-                  <span data-i18n="about.list2">品牌與個人定位文字優化</span>
-                </li>
-                <li class="flex items-center gap-2">
-                  <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
-                  <span data-i18n="about.list3">社群平台內容整理 (IG/小紅書/FB)</span>
-                </li>
-                <li class="flex items-center gap-2">
-                  <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
-                  <span data-i18n="about.list4">視覺與文字的一致性協調</span>
-                </li>
-                <li class="flex items-center gap-2">
-                  <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
-                  <span data-i18n="about.list5">AI 輔助創作流程優化</span>
-                </li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span><span data-i18n="about.list1"></span></li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span><span data-i18n="about.list2"></span></li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span><span data-i18n="about.list3"></span></li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span><span data-i18n="about.list4"></span></li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span><span data-i18n="about.list5"></span></li>
               </ul>
             </div>
 
-            <p class="italic text-slate-500 border-l-2 border-slate-200 pl-4" data-i18n="about.quote">
-              我們的工作，不是替你「多說」，而是幫你說對、說清楚、說得剛好。
-            </p>
+            <p class="italic text-slate-500 border-l-2 border-slate-200 pl-4" data-i18n="about.quote"></p>
 
-            <div class="pt-10">
-              <p class="text-lg font-bold text-slate-900 mb-2" data-i18n="about.weBelieve">我們相信</p>
-
+            <div class="pt-4">
+              <p class="text-lg font-bold text-slate-900 mb-2" data-i18n="about.weBelieve"></p>
               <p class="text-slate-600">
-                <span data-i18n="about.belief1">真正有力量的內容，不在於說了多少，而在於留下了什麼。</span><br>
-                <span class="text-blue-600 font-medium" data-i18n="about.belief2">留白，是一種選擇，也是一種專業判斷。</span>
+                <span data-i18n="about.belief1"></span><br>
+                <span class="text-blue-600 font-medium" data-i18n="about.belief2"></span>
               </p>
             </div>
           </div>
-        </div>
 
+        </div>
       </div>
     </div>
   </section>
 
   <!-- SERVICES -->
-  <section id="services" class="py-24 bg-slate-50 px-6 text-left">
+  <section id="services" class="scroll-mt-28 py-16 md:py-24 bg-slate-50 px-6 text-left">
     <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16">
-        <h3 class="text-3xl font-bold mb-4" data-i18n="services.title">核心服務與定價</h3>
+      <div class="text-center mb-10 md:mb-16">
+        <h3 class="text-3xl font-bold mb-3 md:mb-4" data-i18n="services.title">核心服務與定價</h3>
         <p class="text-slate-400 text-sm italic" data-i18n="services.hint">點擊項目可查看具體案例展示</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-        <div onclick="openModal('modalFood')" class="service-card bg-white p-10 rounded-3xl">
-          <div class="text-blue-500 mb-6 text-4xl">🍳</div>
-          <h4 class="text-xl font-bold mb-3" data-i18n="svc.food.title">美食照片修圖</h4>
-          <p class="text-slate-500 text-sm mb-6" data-i18n="svc.food.desc">
-            專注商用平台視覺優化（Grab / Panda / 社群）<br>
-            色調校正、亮度與對比優化<br>
-            提升食物質感與吸引力<br>
-            適合外送平台、菜單、宣傳用途
-          </p>
+      <!-- Mobile: horizontal snap cards -->
+      <div class="md:hidden -mx-6 px-6 overflow-x-auto snap-x flex gap-4 pb-2">
+        <!-- Food -->
+        <button type="button" onclick="openModal('modalFood', this)" class="snap-start min-w-[78%] service-card bg-white p-8 rounded-3xl text-left focus-ring">
+          <div class="text-blue-500 mb-4 text-4xl">🍳</div>
+          <h4 class="text-xl font-bold mb-2" data-i18n="svc.food.title">美食照片修圖</h4>
+          <p class="text-slate-500 text-sm mb-5" data-i18n="svc.food.desc"></p>
           <div class="mt-auto text-2xl font-bold text-slate-900">
             RM 158 <span class="text-sm font-normal text-slate-400" data-i18n="svc.food.priceNote">/ 15張起</span>
           </div>
-        </div>
+        </button>
 
-        <div onclick="window.location.href='#contact'" class="service-card bg-white p-10 rounded-3xl">
-          <div class="text-blue-500 mb-6 text-4xl">📱</div>
-          <h4 class="text-xl font-bold mb-3" data-i18n="svc.social.title">社群貼文製作</h4>
-          <p class="text-slate-500 text-sm mb-6" data-i18n="svc.social.desc">
-            穩定產出、整體視覺一致的社群內容<br>
-            圖像排版設計<br>
-            基本文案撰寫<br>
-            每週固定產出，維持品牌曝光
-          </p>
+        <!-- Social -->
+        <button type="button" onclick="openModal('modalSocial', this)" class="snap-start min-w-[78%] service-card bg-white p-8 rounded-3xl text-left focus-ring">
+          <div class="text-blue-500 mb-4 text-4xl">📱</div>
+          <h4 class="text-xl font-bold mb-2" data-i18n="svc.social.title">社群貼文製作</h4>
+          <p class="text-slate-500 text-sm mb-5" data-i18n="svc.social.desc"></p>
           <div class="mt-auto text-2xl font-bold text-slate-900">
             RM 800 <span class="text-sm font-normal text-slate-400" data-i18n="svc.social.priceNote">/ 8則</span>
           </div>
-        </div>
+        </button>
 
-        <div onclick="openModal('modalPoster')" class="service-card bg-white p-10 rounded-3xl">
-          <div class="text-blue-500 mb-6 text-4xl">🎨</div>
-          <h4 class="text-xl font-bold mb-3" data-i18n="svc.poster.title">活動海報設計</h4>
-          <p class="text-slate-500 text-sm mb-6" data-i18n="svc.poster.desc">
-            活動海報設計<br>
-            清楚傳達重點，提升活動參與率<br>
-            視覺主題規劃<br>
-            活動資訊清晰編排<br>
-            可整合線上報名 QR Code
-          </p>
+        <!-- Poster -->
+        <button type="button" onclick="openModal('modalPoster', this)" class="snap-start min-w-[78%] service-card bg-white p-8 rounded-3xl text-left focus-ring">
+          <div class="text-blue-500 mb-4 text-4xl">🎨</div>
+          <h4 class="text-xl font-bold mb-2" data-i18n="svc.poster.title">活動海報設計</h4>
+          <p class="text-slate-500 text-sm mb-5" data-i18n="svc.poster.desc"></p>
           <div class="mt-auto text-2xl font-bold text-slate-900">
             RM 150 <span class="text-sm font-normal text-slate-400" data-i18n="svc.poster.priceNote">/ 起</span>
           </div>
-        </div>
+        </button>
 
-        <div onclick="openModal('modalVideo')" class="service-card bg-white p-10 rounded-3xl">
-          <div class="text-blue-500 mb-6 text-4xl">🎵</div>
-          <h4 class="text-xl font-bold mb-3" data-i18n="svc.video.title">定制化歌曲與影音</h4>
-          <p class="text-slate-500 text-sm mb-6" data-i18n="svc.video.desc">
-            定制歌詞或主題旋律<br>
-            適合品牌、活動、求婚<br>
-            可搭配簡易影音呈現
-          </p>
+        <!-- Video -->
+        <button type="button" onclick="openModal('modalVideo', this)" class="snap-start min-w-[78%] service-card bg-white p-8 rounded-3xl text-left focus-ring">
+          <div class="text-blue-500 mb-4 text-4xl">🎵</div>
+          <h4 class="text-xl font-bold mb-2" data-i18n="svc.video.title">定制化歌曲與影音</h4>
+          <p class="text-slate-500 text-sm mb-5" data-i18n="svc.video.desc"></p>
           <div class="mt-auto text-2xl font-bold text-slate-900">
             RM 55 <span class="text-sm font-normal text-slate-400" data-i18n="svc.video.priceNote">/ 首</span>
           </div>
-        </div>
+        </button>
 
-        <div onclick="window.location.href='#contact'" class="service-card bg-white p-10 rounded-3xl">
-          <div class="text-blue-500 mb-6 text-4xl">💻</div>
-          <h4 class="text-xl font-bold mb-3" data-i18n="svc.web.title">網頁設計與規劃</h4>
-          <p class="text-slate-500 text-sm mb-6" data-i18n="svc.web.desc">
-            實用導向的網站結構與視覺設計<br>
-            網站內容架構規劃<br>
-            頁面流程與視覺風格設計<br>
-            適用於品牌官網、個人介紹、服務型網站
-          </p>
+        <!-- Web -->
+        <button type="button" onclick="openModal('modalWeb', this)" class="snap-start min-w-[78%] service-card bg-white p-8 rounded-3xl text-left focus-ring">
+          <div class="text-blue-500 mb-4 text-4xl">💻</div>
+          <h4 class="text-xl font-bold mb-2" data-i18n="svc.web.title">網頁設計與規劃</h4>
+          <p class="text-slate-500 text-sm mb-5" data-i18n="svc.web.desc"></p>
           <div class="mt-auto text-2xl font-bold text-slate-900">
             RM 800 – 1500
             <span class="text-sm font-normal text-slate-400" data-i18n="svc.web.priceNote">／依頁面與需求評估</span>
           </div>
-        </div>
+        </button>
 
-        <div onclick="openModal('modalMerch')" class="service-card bg-white p-10 rounded-3xl">
-          <div class="text-blue-500 mb-6 text-4xl">👕</div>
-          <h4 class="text-xl font-bold mb-3" data-i18n="svc.merch.title">圖像設計與個性化商品</h4>
-          <p class="text-slate-500 text-sm mb-6" data-i18n="svc.merch.desc">
-            將設計延伸為實體商品<br>
-            圖像風格需求設計<br>
-            適用於 T-shirt、環保袋等<br>
-            小量客製、風格明確
-          </p>
+        <!-- Merch -->
+        <button type="button" onclick="openModal('modalMerch', this)" class="snap-start min-w-[78%] service-card bg-white p-8 rounded-3xl text-left focus-ring">
+          <div class="text-blue-500 mb-4 text-4xl">👕</div>
+          <h4 class="text-xl font-bold mb-2" data-i18n="svc.merch.title">圖像設計與個性化商品</h4>
+          <p class="text-slate-500 text-sm mb-5" data-i18n="svc.merch.desc"></p>
           <div class="mt-auto text-2xl font-bold text-slate-900">
             RM 65 <span class="text-sm font-normal text-slate-400" data-i18n="svc.merch.priceNote">/ 起</span>
           </div>
-        </div>
+        </button>
+      </div>
 
+      <!-- Desktop: grid cards -->
+      <div class="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <button type="button" onclick="openModal('modalFood', this)" class="service-card bg-white p-10 rounded-3xl text-left focus-ring">
+          <div class="text-blue-500 mb-6 text-4xl">🍳</div>
+          <h4 class="text-xl font-bold mb-3" data-i18n="svc.food.title">美食照片修圖</h4>
+          <p class="text-slate-500 text-sm mb-6" data-i18n="svc.food.desc"></p>
+          <div class="mt-auto text-2xl font-bold text-slate-900">
+            RM 158 <span class="text-sm font-normal text-slate-400" data-i18n="svc.food.priceNote">/ 15張起</span>
+          </div>
+        </button>
+
+        <button type="button" onclick="openModal('modalSocial', this)" class="service-card bg-white p-10 rounded-3xl text-left focus-ring">
+          <div class="text-blue-500 mb-6 text-4xl">📱</div>
+          <h4 class="text-xl font-bold mb-3" data-i18n="svc.social.title">社群貼文製作</h4>
+          <p class="text-slate-500 text-sm mb-6" data-i18n="svc.social.desc"></p>
+          <div class="mt-auto text-2xl font-bold text-slate-900">
+            RM 800 <span class="text-sm font-normal text-slate-400" data-i18n="svc.social.priceNote">/ 8則</span>
+          </div>
+        </button>
+
+        <button type="button" onclick="openModal('modalPoster', this)" class="service-card bg-white p-10 rounded-3xl text-left focus-ring">
+          <div class="text-blue-500 mb-6 text-4xl">🎨</div>
+          <h4 class="text-xl font-bold mb-3" data-i18n="svc.poster.title">活動海報設計</h4>
+          <p class="text-slate-500 text-sm mb-6" data-i18n="svc.poster.desc"></p>
+          <div class="mt-auto text-2xl font-bold text-slate-900">
+            RM 150 <span class="text-sm font-normal text-slate-400" data-i18n="svc.poster.priceNote">/ 起</span>
+          </div>
+        </button>
+
+        <button type="button" onclick="openModal('modalVideo', this)" class="service-card bg-white p-10 rounded-3xl text-left focus-ring">
+          <div class="text-blue-500 mb-6 text-4xl">🎵</div>
+          <h4 class="text-xl font-bold mb-3" data-i18n="svc.video.title">定制化歌曲與影音</h4>
+          <p class="text-slate-500 text-sm mb-6" data-i18n="svc.video.desc"></p>
+          <div class="mt-auto text-2xl font-bold text-slate-900">
+            RM 55 <span class="text-sm font-normal text-slate-400" data-i18n="svc.video.priceNote">/ 首</span>
+          </div>
+        </button>
+
+        <button type="button" onclick="openModal('modalWeb', this)" class="service-card bg-white p-10 rounded-3xl text-left focus-ring">
+          <div class="text-blue-500 mb-6 text-4xl">💻</div>
+          <h4 class="text-xl font-bold mb-3" data-i18n="svc.web.title">網頁設計與規劃</h4>
+          <p class="text-slate-500 text-sm mb-6" data-i18n="svc.web.desc"></p>
+          <div class="mt-auto text-2xl font-bold text-slate-900">
+            RM 800 – 1500
+            <span class="text-sm font-normal text-slate-400" data-i18n="svc.web.priceNote">／依頁面與需求評估</span>
+          </div>
+        </button>
+
+        <button type="button" onclick="openModal('modalMerch', this)" class="service-card bg-white p-10 rounded-3xl text-left focus-ring">
+          <div class="text-blue-500 mb-6 text-4xl">👕</div>
+          <h4 class="text-xl font-bold mb-3" data-i18n="svc.merch.title">圖像設計與個性化商品</h4>
+          <p class="text-slate-500 text-sm mb-6" data-i18n="svc.merch.desc"></p>
+          <div class="mt-auto text-2xl font-bold text-slate-900">
+            RM 65 <span class="text-sm font-normal text-slate-400" data-i18n="svc.merch.priceNote">/ 起</span>
+          </div>
+        </button>
       </div>
     </div>
   </section>
 
   <!-- CONTACT -->
-  <section id="contact" class="py-24 px-6 text-center">
-    <div class="max-w-4xl mx-auto bg-slate-900 rounded-[3rem] p-12 text-white">
-      <h3 class="text-3xl font-bold mb-8" data-i18n="contact.title">準備好開始您的「留白」計劃嗎？</h3>
+  <section id="contact" class="scroll-mt-28 py-16 md:py-24 px-6 text-center">
+    <div class="max-w-4xl mx-auto bg-slate-900 rounded-[3rem] p-10 md:p-12 text-white">
+      <h3 class="text-3xl font-bold mb-6 md:mb-8" data-i18n="contact.title">準備好開始您的「留白」計劃嗎？</h3>
+
+      <p class="text-white/70 max-w-2xl mx-auto mb-8 text-sm md:text-base" data-i18n="contact.note">
+        直接把「想做的服務＋素材狀況＋希望交付日期」傳給我，我會用最短時間回覆你可行方案與報價範圍。
+      </p>
 
       <a id="waLink"
          href="https://wa.me/60166262464?text=你好，我想諮詢服務"
          target="_blank"
-         class="inline-block px-12 py-5 bg-green-500 text-white rounded-full font-bold text-xl transition transform hover:scale-105">
+         class="inline-block px-10 md:px-12 py-5 bg-green-500 text-white rounded-full font-bold text-lg md:text-xl transition transform hover:scale-105 focus-ring">
         <span data-i18n="contact.cta">WhatsApp 立即諮詢</span>
       </a>
+
+      <div class="mt-6 text-xs text-white/50" data-i18n="contact.small">
+        提醒：越具體越快出方案（例如：照片張數／尺寸／用途／截止時間）
+      </div>
     </div>
   </section>
 
+  <!-- =========================
+       MODALS (A11y enabled)
+       ========================= -->
+
   <!-- MODAL: FOOD -->
-  <div id="modalFood" class="modal">
-    <div class="modal-content text-center">
-      <span onclick="closeModal('modalFood')" class="absolute right-6 top-6 text-2xl cursor-pointer text-slate-400">&times;</span>
+  <div id="modalFood" class="modal" aria-hidden="true">
+    <div class="modal-content text-center" role="dialog" aria-modal="true" aria-labelledby="modalFoodTitle">
+      <button type="button" onclick="closeModal('modalFood')" class="absolute right-6 top-6 text-2xl cursor-pointer text-slate-400 focus-ring rounded-md px-2 py-1" aria-label="Close dialog">&times;</button>
 
-      <h3 class="font-bold text-xl mb-6" data-i18n="modal.food.title">美食修圖 前後對比</h3>
+      <h3 id="modalFoodTitle" class="font-bold text-xl mb-5" data-i18n="modal.food.title">美食修圖 前後對比</h3>
 
-      <div class="img-placeholder mb-8">
-        <img id="foodImg" src="https://i.postimg.cc/0Qfj9tND/美食前.webp" class="w-full h-80 object-contain" alt="food">
+      <div class="img-placeholder mb-6 aspect-[4/3] w-full">
+        <img id="foodImg" loading="lazy" src="https://i.postimg.cc/0Qfj9tND/美食前.webp" class="w-full h-full object-contain" alt="food">
       </div>
 
-      <div class="flex gap-4">
-        <button onclick="document.getElementById('foodImg').src='https://i.postimg.cc/0Qfj9tND/美食前.webp'"
-                class="flex-1 py-4 bg-slate-100 rounded-2xl font-bold">
+      <div class="flex gap-3">
+        <button type="button" onclick="document.getElementById('foodImg').src='https://i.postimg.cc/0Qfj9tND/美食前.webp'"
+                class="flex-1 py-4 bg-slate-100 rounded-2xl font-bold focus-ring">
           <span data-i18n="modal.food.original">原圖</span>
         </button>
 
-        <button onclick="document.getElementById('foodImg').src='https://i.postimg.cc/8CvrgBM8/美食后.png'"
-                class="flex-1 py-4 bg-blue-600 text-white rounded-2xl font-bold shadow-lg">
+        <button type="button" onclick="document.getElementById('foodImg').src='https://i.postimg.cc/8CvrgBM8/美食后.png'"
+                class="flex-1 py-4 bg-blue-600 text-white rounded-2xl font-bold shadow-lg focus-ring">
           <span data-i18n="modal.food.retouch">修圖後 ✨</span>
+        </button>
+      </div>
+
+      <div class="mt-6 flex flex-col md:flex-row gap-3">
+        <button type="button" class="md:flex-1 py-3 rounded-2xl bg-slate-900 text-white font-bold hover:bg-blue-600 transition focus-ring"
+                onclick="jumpToContactAndClose('modalFood')">
+          <span data-i18n="modal.cta">用這個服務諮詢</span>
+        </button>
+        <button type="button" class="md:flex-1 py-3 rounded-2xl bg-slate-100 text-slate-900 font-bold hover:bg-slate-200 transition focus-ring"
+                onclick="closeModal('modalFood')">
+          <span data-i18n="modal.close">先看看別的</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: SOCIAL -->
+  <div id="modalSocial" class="modal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalSocialTitle">
+      <button type="button" onclick="closeModal('modalSocial')" class="absolute right-6 top-6 text-2xl cursor-pointer text-slate-400 focus-ring rounded-md px-2 py-1" aria-label="Close dialog">&times;</button>
+
+      <h3 id="modalSocialTitle" class="font-bold text-xl mb-4 text-center" data-i18n="modal.social.title">社群貼文製作｜交付內容</h3>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="rounded-2xl border border-slate-200 p-5">
+          <p class="font-bold text-slate-900 mb-2" data-i18n="modal.social.block1Title">你會拿到什麼</p>
+          <ul class="text-sm text-slate-600 space-y-2">
+            <li data-i18n="modal.social.item1">• 版型設計（整體一致）</li>
+            <li data-i18n="modal.social.item2">• 貼文排版與輸出尺寸</li>
+            <li data-i18n="modal.social.item3">• 基本文案（可提供方向）</li>
+            <li data-i18n="modal.social.item4">• 一週／一檔期排程建議</li>
+          </ul>
+        </div>
+
+        <div class="rounded-2xl border border-slate-200 p-5">
+          <p class="font-bold text-slate-900 mb-2" data-i18n="modal.social.block2Title">最適合你，如果你想要</p>
+          <ul class="text-sm text-slate-600 space-y-2">
+            <li data-i18n="modal.social.fit1">• 風格統一、輸出穩定</li>
+            <li data-i18n="modal.social.fit2">• 不再每次從零開始做圖</li>
+            <li data-i18n="modal.social.fit3">• 讓內容更「像品牌」</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-6 rounded-2xl bg-slate-50 p-5 border border-slate-200">
+        <p class="text-sm text-slate-600" data-i18n="modal.social.tip">
+          建議你在諮詢時提供：品牌類型、常見客群、想走的風格、參考帳號（1-3 個）、預計每週產出量。
+        </p>
+      </div>
+
+      <div class="mt-6 flex flex-col md:flex-row gap-3">
+        <button type="button" class="md:flex-1 py-3 rounded-2xl bg-slate-900 text-white font-bold hover:bg-blue-600 transition focus-ring"
+                onclick="jumpToContactAndClose('modalSocial')">
+          <span data-i18n="modal.cta">用這個服務諮詢</span>
+        </button>
+        <button type="button" class="md:flex-1 py-3 rounded-2xl bg-slate-100 text-slate-900 font-bold hover:bg-slate-200 transition focus-ring"
+                onclick="closeModal('modalSocial')">
+          <span data-i18n="modal.close">先看看別的</span>
         </button>
       </div>
     </div>
   </div>
 
   <!-- MODAL: POSTER -->
-  <div id="modalPoster" class="modal">
-    <div class="modal-content text-center">
-      <span onclick="closeModal('modalPoster')" class="absolute right-6 top-6 text-2xl cursor-pointer text-slate-400">&times;</span>
+  <div id="modalPoster" class="modal" aria-hidden="true">
+    <div class="modal-content text-center" role="dialog" aria-modal="true" aria-labelledby="modalPosterTitle">
+      <button type="button" onclick="closeModal('modalPoster')" class="absolute right-6 top-6 text-2xl cursor-pointer text-slate-400 focus-ring rounded-md px-2 py-1" aria-label="Close dialog">&times;</button>
 
-      <h3 class="font-bold text-xl mb-6" data-i18n="modal.poster.title">活動海報 作品集</h3>
+      <h3 id="modalPosterTitle" class="font-bold text-xl mb-5" data-i18n="modal.poster.title">活動海報 作品集</h3>
 
-      <div class="img-placeholder mb-8">
+      <div class="img-placeholder mb-6 aspect-[4/3] md:aspect-[16/10] w-full">
         <img id="galleryImg"
+             loading="lazy"
              src="https://i.postimg.cc/J0DfpnS0/上映日_地點_6yi咖啡館_日期.png"
-             class="w-full h-80 md:h-[450px] object-contain"
+             class="w-full h-full object-contain"
              alt="poster">
       </div>
 
-      <div class="flex justify-between items-center px-4">
-        <button onclick="changeG(-1)" class="text-blue-600 font-bold">❮ <span data-i18n="common.prev">上一張</span></button>
+      <div class="flex justify-between items-center px-2">
+        <button type="button" onclick="changeG(-1)" class="text-blue-600 font-bold focus-ring rounded-lg px-3 py-2">❮ <span data-i18n="common.prev">上一張</span></button>
         <span id="gCount" class="text-slate-400 text-sm">1 / 3</span>
-        <button onclick="changeG(1)" class="text-blue-600 font-bold"><span data-i18n="common.next">下一張</span> ❯</button>
+        <button type="button" onclick="changeG(1)" class="text-blue-600 font-bold focus-ring rounded-lg px-3 py-2"><span data-i18n="common.next">下一張</span> ❯</button>
+      </div>
+
+      <div class="mt-6 flex flex-col md:flex-row gap-3">
+        <button type="button" class="md:flex-1 py-3 rounded-2xl bg-slate-900 text-white font-bold hover:bg-blue-600 transition focus-ring"
+                onclick="jumpToContactAndClose('modalPoster')">
+          <span data-i18n="modal.cta">用這個服務諮詢</span>
+        </button>
+        <button type="button" class="md:flex-1 py-3 rounded-2xl bg-slate-100 text-slate-900 font-bold hover:bg-slate-200 transition focus-ring"
+                onclick="closeModal('modalPoster')">
+          <span data-i18n="modal.close">先看看別的</span>
+        </button>
       </div>
     </div>
   </div>
 
   <!-- MODAL: VIDEO -->
-  <div id="modalVideo" class="modal">
-    <div class="modal-content relative">
-      <span onclick="closeModal('modalVideo')" class="absolute right-6 top-6 text-2xl cursor-pointer text-slate-400">&times;</span>
+  <div id="modalVideo" class="modal" aria-hidden="true">
+    <div class="modal-content relative" role="dialog" aria-modal="true" aria-labelledby="modalVideoTitle">
+      <button type="button" onclick="closeModal('modalVideo')" class="absolute right-6 top-6 text-2xl cursor-pointer text-slate-400 focus-ring rounded-md px-2 py-1" aria-label="Close dialog">&times;</button>
 
-      <h3 class="font-bold text-xl mb-6 text-center" data-i18n="modal.video.title">AI 影音作品展示</h3>
+      <h3 id="modalVideoTitle" class="font-bold text-xl mb-5 text-center" data-i18n="modal.video.title">AI 影音作品展示</h3>
 
       <div class="aspect-video bg-black rounded-3xl overflow-hidden shadow-2xl relative">
         <iframe
@@ -329,35 +507,106 @@
         </iframe>
       </div>
 
-      <div class="mt-6 text-center">
+      <div class="mt-5 text-center">
         <a href="https://www.youtube.com/watch?v=3y2XqzEB_1Y"
            target="_blank"
            rel="noopener"
-           class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-slate-900 text-white font-bold hover:bg-blue-600 transition">
+           class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-slate-900 text-white font-bold hover:bg-blue-600 transition focus-ring">
           <span data-i18n="modal.video.fallback">無法嵌入？改到 YouTube 觀看</span>
         </a>
+      </div>
+
+      <div class="mt-6 flex flex-col md:flex-row gap-3">
+        <button type="button" class="md:flex-1 py-3 rounded-2xl bg-slate-900 text-white font-bold hover:bg-blue-600 transition focus-ring"
+                onclick="jumpToContactAndClose('modalVideo')">
+          <span data-i18n="modal.cta">用這個服務諮詢</span>
+        </button>
+        <button type="button" class="md:flex-1 py-3 rounded-2xl bg-slate-100 text-slate-900 font-bold hover:bg-slate-200 transition focus-ring"
+                onclick="closeModal('modalVideo')">
+          <span data-i18n="modal.close">先看看別的</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: WEB -->
+  <div id="modalWeb" class="modal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalWebTitle">
+      <button type="button" onclick="closeModal('modalWeb')" class="absolute right-6 top-6 text-2xl cursor-pointer text-slate-400 focus-ring rounded-md px-2 py-1" aria-label="Close dialog">&times;</button>
+
+      <h3 id="modalWebTitle" class="font-bold text-xl mb-4 text-center" data-i18n="modal.web.title">網頁設計與規劃｜流程與交付</h3>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="rounded-2xl border border-slate-200 p-5">
+          <p class="font-bold text-slate-900 mb-2" data-i18n="modal.web.block1Title">流程（簡化版）</p>
+          <ol class="text-sm text-slate-600 space-y-2 list-decimal pl-5">
+            <li data-i18n="modal.web.step1">需求整理（目標、受眾、內容清單）</li>
+            <li data-i18n="modal.web.step2">網站結構 / 線框稿（資訊架構）</li>
+            <li data-i18n="modal.web.step3">視覺風格定稿（字體、配色、版面）</li>
+            <li data-i18n="modal.web.step4">頁面設計與調整（RWD）</li>
+          </ol>
+        </div>
+
+        <div class="rounded-2xl border border-slate-200 p-5">
+          <p class="font-bold text-slate-900 mb-2" data-i18n="modal.web.block2Title">常見交付</p>
+          <ul class="text-sm text-slate-600 space-y-2">
+            <li data-i18n="modal.web.deliver1">• 單頁 / 多頁 RWD 版型</li>
+            <li data-i18n="modal.web.deliver2">• 內容結構與文案微調建議</li>
+            <li data-i18n="modal.web.deliver3">• CTA 動線優化（諮詢/表單/WhatsApp）</li>
+            <li data-i18n="modal.web.deliver4">• 基礎 SEO 欄位（title/desc/og）</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-6 rounded-2xl bg-slate-50 p-5 border border-slate-200">
+        <p class="text-sm text-slate-600" data-i18n="modal.web.tip">
+          建議諮詢時提供：你想參考的網站（1-3 個）、頁面數、要放的內容與素材（logo/照片/文字），以及上線時間目標。
+        </p>
+      </div>
+
+      <div class="mt-6 flex flex-col md:flex-row gap-3">
+        <button type="button" class="md:flex-1 py-3 rounded-2xl bg-slate-900 text-white font-bold hover:bg-blue-600 transition focus-ring"
+                onclick="jumpToContactAndClose('modalWeb')">
+          <span data-i18n="modal.cta">用這個服務諮詢</span>
+        </button>
+        <button type="button" class="md:flex-1 py-3 rounded-2xl bg-slate-100 text-slate-900 font-bold hover:bg-slate-200 transition focus-ring"
+                onclick="closeModal('modalWeb')">
+          <span data-i18n="modal.close">先看看別的</span>
+        </button>
       </div>
     </div>
   </div>
 
   <!-- MODAL: MERCH -->
-  <div id="modalMerch" class="modal">
-    <div class="modal-content text-center">
-      <span onclick="closeModal('modalMerch')" class="absolute right-6 top-6 text-2xl cursor-pointer text-slate-400">&times;</span>
+  <div id="modalMerch" class="modal" aria-hidden="true">
+    <div class="modal-content text-center" role="dialog" aria-modal="true" aria-labelledby="modalMerchTitle">
+      <button type="button" onclick="closeModal('modalMerch')" class="absolute right-6 top-6 text-2xl cursor-pointer text-slate-400 focus-ring rounded-md px-2 py-1" aria-label="Close dialog">&times;</button>
 
-      <h3 class="font-bold text-xl mb-6" data-i18n="modal.merch.title">圖像設計與個性化商品 作品展示</h3>
+      <h3 id="modalMerchTitle" class="font-bold text-xl mb-5" data-i18n="modal.merch.title">圖像設計與個性化商品 作品展示</h3>
 
-      <div class="img-placeholder mb-8">
+      <div class="img-placeholder mb-6 aspect-[4/3] md:aspect-[16/10] w-full">
         <img id="merchImg"
+             loading="lazy"
              src="https://i.postimg.cc/g0GBcTVh/Chat_GPT_Image_2025年12月18日_20_45_43.png"
-             class="w-full h-80 md:h-[450px] object-contain"
+             class="w-full h-full object-contain"
              alt="merch">
       </div>
 
-      <div class="flex justify-between items-center px-4">
-        <button onclick="changeMerch(-1)" class="text-blue-600 font-bold">❮ <span data-i18n="common.prev">上一張</span></button>
+      <div class="flex justify-between items-center px-2">
+        <button type="button" onclick="changeMerch(-1)" class="text-blue-600 font-bold focus-ring rounded-lg px-3 py-2">❮ <span data-i18n="common.prev">上一張</span></button>
         <span id="merchCount" class="text-slate-400 text-sm">1 / 5</span>
-        <button onclick="changeMerch(1)" class="text-blue-600 font-bold"><span data-i18n="common.next">下一張</span> ❯</button>
+        <button type="button" onclick="changeMerch(1)" class="text-blue-600 font-bold focus-ring rounded-lg px-3 py-2"><span data-i18n="common.next">下一張</span> ❯</button>
+      </div>
+
+      <div class="mt-6 flex flex-col md:flex-row gap-3">
+        <button type="button" class="md:flex-1 py-3 rounded-2xl bg-slate-900 text-white font-bold hover:bg-blue-600 transition focus-ring"
+                onclick="jumpToContactAndClose('modalMerch')">
+          <span data-i18n="modal.cta">用這個服務諮詢</span>
+        </button>
+        <button type="button" class="md:flex-1 py-3 rounded-2xl bg-slate-100 text-slate-900 font-bold hover:bg-slate-200 transition focus-ring"
+                onclick="closeModal('modalMerch')">
+          <span data-i18n="modal.close">先看看別的</span>
+        </button>
       </div>
     </div>
   </div>
@@ -377,11 +626,14 @@
         "hero.titleA": "把想法整理成",
         "hero.titleB": "質感的成果。",
         "hero.desc": "內容策劃・視覺設計・AI 整合，協助你把雜亂變清晰，把想法變成可用的成果。",
+        "hero.ctaServices": "先看服務與案例",
+        "hero.note": "回覆通常很快，先把需求丟過來就好。",
 
         "about.title": "品牌介紹",
         "about.subtitle": "About Whitespace +",
         "about.lead1": "留白，不是空白，",
         "about.lead2": "而是讓重要的東西留下來。",
+        "about.expand": "展開品牌介紹與服務範圍",
         "about.p1": "「留白 Whitespace +」是一個專注於內容整理、結構優化與視覺呈現的創作與顧問型服務品牌。協助品牌、商家與創作者，把零散的想法、模糊的概念與雜亂的素材，整理成清楚、有層次、能被理解、也能被使用的內容成果。",
         "about.p2": "在資訊過載的時代，我們不追求過度包裝與堆疊，而是回到本質，找出真正重要的訊息，留下剛剛好的內容與空間。",
         "about.whatWeDo": "我們在做什麼",
@@ -396,7 +648,7 @@
         "about.belief2": "留白，是一種選擇，也是一種專業判斷。",
 
         "services.title": "核心服務與定價",
-        "services.hint": "點擊項目可查看具體案例展示",
+        "services.hint": "點擊項目可查看具體案例展示（手機可左右滑）",
 
         "svc.food.title": "美食照片修圖",
         "svc.food.desc": "專注商用平台視覺優化（Grab / Panda / 社群）<br>色調校正、亮度與對比優化<br>提升食物質感與吸引力<br>適合外送平台、菜單、宣傳用途",
@@ -423,15 +675,47 @@
         "svc.merch.priceNote": "/ 起",
 
         "contact.title": "準備好開始您的「留白」計劃嗎？",
+        "contact.note": "直接把「想做的服務＋素材狀況＋希望交付日期」傳給我，我會用最短時間回覆你可行方案與報價範圍。",
         "contact.cta": "WhatsApp 立即諮詢",
+        "contact.small": "提醒：越具體越快出方案（例如：照片張數／尺寸／用途／截止時間）",
+
+        "modal.cta": "用這個服務諮詢",
+        "modal.close": "先看看別的",
 
         "modal.food.title": "美食修圖 前後對比",
         "modal.food.original": "原圖",
         "modal.food.retouch": "修圖後 ✨",
 
+        "modal.social.title": "社群貼文製作｜交付內容",
+        "modal.social.block1Title": "你會拿到什麼",
+        "modal.social.block2Title": "最適合你，如果你想要",
+        "modal.social.item1": "• 版型設計（整體一致）",
+        "modal.social.item2": "• 貼文排版與輸出尺寸",
+        "modal.social.item3": "• 基本文案（可提供方向）",
+        "modal.social.item4": "• 一週／一檔期排程建議",
+        "modal.social.fit1": "• 風格統一、輸出穩定",
+        "modal.social.fit2": "• 不再每次從零開始做圖",
+        "modal.social.fit3": "• 讓內容更「像品牌」",
+        "modal.social.tip": "建議你在諮詢時提供：品牌類型、常見客群、想走的風格、參考帳號（1-3 個）、預計每週產出量。",
+
         "modal.poster.title": "活動海報 作品集",
+
         "modal.video.title": "AI 影音作品展示",
         "modal.video.fallback": "無法嵌入？改到 YouTube 觀看",
+
+        "modal.web.title": "網頁設計與規劃｜流程與交付",
+        "modal.web.block1Title": "流程（簡化版）",
+        "modal.web.block2Title": "常見交付",
+        "modal.web.step1": "需求整理（目標、受眾、內容清單）",
+        "modal.web.step2": "網站結構 / 線框稿（資訊架構）",
+        "modal.web.step3": "視覺風格定稿（字體、配色、版面）",
+        "modal.web.step4": "頁面設計與調整（RWD）",
+        "modal.web.deliver1": "• 單頁 / 多頁 RWD 版型",
+        "modal.web.deliver2": "• 內容結構與文案微調建議",
+        "modal.web.deliver3": "• CTA 動線優化（諮詢/表單/WhatsApp）",
+        "modal.web.deliver4": "• 基礎 SEO 欄位（title/desc/og）",
+        "modal.web.tip": "建議諮詢時提供：你想參考的網站（1-3 個）、頁面數、要放的內容與素材（logo/照片/文字），以及上線時間目標。",
+
         "modal.merch.title": "圖像設計與個性化商品 作品展示",
 
         "common.prev": "上一張",
@@ -449,11 +733,14 @@
         "hero.titleA": "Turn ideas into",
         "hero.titleB": "refined results.",
         "hero.desc": "Content planning, visual design, and AI integration — turning messy ideas into clear, usable deliverables.",
+        "hero.ctaServices": "View services & examples",
+        "hero.note": "Usually quick reply — send your needs anytime.",
 
         "about.title": "About",
         "about.subtitle": "Whitespace +",
         "about.lead1": "Whitespace is not emptiness —",
         "about.lead2": "it’s what lets the essential stand out.",
+        "about.expand": "Expand brand intro & scope",
         "about.p1": "Whitespace + is a studio-style consulting service focused on content structuring, clarity, and visual presentation. We help brands and creators turn scattered ideas and messy assets into clear, layered, usable deliverables.",
         "about.p2": "In an information-overloaded world, we don’t over-decorate. We go back to fundamentals — identify what matters and leave just the right amount of space.",
         "about.whatWeDo": "What we do",
@@ -468,43 +755,75 @@
         "about.belief2": "Whitespace is a choice — and a professional judgment.",
 
         "services.title": "Services & Pricing",
-        "services.hint": "Click an item to view examples",
+        "services.hint": "Tap to view examples (swipe on mobile)",
 
         "svc.food.title": "Food Photo Retouching",
-        "svc.food.desc": "Focused on visual optimization for commercial platforms (Grab / Panda / Social Media)<br>Color correction and brightness & contrast optimization<br>Enhancing food texture and visual appeal<br>Suitable for delivery platforms, menus, and promotional use",
+        "svc.food.desc": "Visual optimization for commercial platforms (Grab / Panda / Social Media)<br>Color correction + brightness/contrast<br>Enhancing food texture and appeal<br>Great for delivery menus & promos",
         "svc.food.priceNote": "/ from 15 photos",
 
         "svc.social.title": "Social Post Package",
-        "svc.social.desc": "Consistent social media content with unified visual branding<br>Graphic layout and visual design<br>Essential copywriting<br>Weekly scheduled posts to maintain brand exposure",
+        "svc.social.desc": "Consistent content with unified branding<br>Graphic layout & visual design<br>Essential copywriting<br>Weekly output to maintain exposure",
         "svc.social.priceNote": "/ 8 posts",
 
         "svc.poster.title": "Event Poster Design",
-        "svc.poster.desc": "Event Poster Design<br>Clear message delivery to increase event participation<br>Visual theme planning<br>Well-structured and easy-to-read event information layout<br>Optional integration of online registration QR codes",
+        "svc.poster.desc": "Clear message delivery to increase participation<br>Visual theme planning<br>Readable information layout<br>Optional QR registration integration",
         "svc.poster.priceNote": "/ from",
 
         "svc.video.title": "Customized Music & Video",
-        "svc.video.desc": "Custom lyrics or theme melody<br>Suitable for brands, events, and proposals<br>Optional simple video accompaniment available",
+        "svc.video.desc": "Custom lyrics or theme melody<br>For brands, events, proposals<br>Optional simple video accompaniment",
         "svc.video.priceNote": "/ track",
 
         "svc.web.title": "Website Design & Planning",
-        "svc.web.desc": "Function-driven website structure and visual design<br>Website information architecture planning<br>User flow and visual style design<br>Ideal for brand websites, personal portfolios, and service-oriented websites",
+        "svc.web.desc": "Function-driven structure + visual design<br>Information architecture planning<br>User flow & style design<br>For brands, portfolios, service sites",
         "svc.web.priceNote": "/ depending on scope",
 
         "svc.merch.title": "Design & Personalized Merch",
-        "svc.merch.desc": "Extending design into physical products<br>Custom graphic style design<br>Suitable for T-shirts, tote bags, and related items<br>Small-batch customization with a clear and defined style",
+        "svc.merch.desc": "Extending design into physical products<br>Custom graphic style design<br>T-shirts, tote bags, and more<br>Small-batch customization",
         "svc.merch.priceNote": "/ from",
 
         "contact.title": "Ready to start your Whitespace plan?",
+        "contact.note": "Send “service + materials + desired deadline” — I’ll reply with a workable plan and a pricing range as soon as possible.",
         "contact.cta": "WhatsApp — Contact Now",
+        "contact.small": "Tip: the more specific, the faster the proposal (quantity / size / purpose / deadline).",
+
+        "modal.cta": "Inquire about this service",
+        "modal.close": "Keep browsing",
 
         "modal.food.title": "Before & After — Food Retouch",
         "modal.food.original": "Original",
         "modal.food.retouch": "Retouched ✨",
 
+        "modal.social.title": "Social Posts｜Deliverables",
+        "modal.social.block1Title": "What you’ll get",
+        "modal.social.block2Title": "Best if you want",
+        "modal.social.item1": "• Consistent templates",
+        "modal.social.item2": "• Layout + export sizes",
+        "modal.social.item3": "• Essential copy support",
+        "modal.social.item4": "• Weekly/campaign posting suggestions",
+        "modal.social.fit1": "• Consistent style and output",
+        "modal.social.fit2": "• Stop designing from scratch",
+        "modal.social.fit3": "• More “brand-like” content",
+        "modal.social.tip": "For faster quoting: share niche, audience, desired style, 1–3 references, and weekly posting volume.",
+
         "modal.poster.title": "Poster Portfolio",
+
         "modal.video.title": "AI Music & Video Showcase",
         "modal.video.fallback": "Can’t embed? Watch on YouTube",
-        "modal.merch.title": "Design & Personalized Merch — Gallery",
+
+        "modal.web.title": "Website｜Process & Delivery",
+        "modal.web.block1Title": "Process (simplified)",
+        "modal.web.block2Title": "Typical deliverables",
+        "modal.web.step1": "Requirement alignment (goal, audience, content list)",
+        "modal.web.step2": "Sitemap / wireframe (information architecture)",
+        "modal.web.step3": "Visual direction (type, color, layout)",
+        "modal.web.step4": "Page design & refinement (RWD)",
+        "modal.web.deliver1": "• Single / multi-page RWD layout",
+        "modal.web.deliver2": "• Content structure + copy polish suggestions",
+        "modal.web.deliver3": "• CTA flow optimization (inquiry/form/WhatsApp)",
+        "modal.web.deliver4": "• Basic SEO fields (title/desc/og)",
+        "modal.web.tip": "To start: share 1–3 website references, number of pages, content/materials (logo/photos/text), and target launch date.",
+
+        "modal.merch.title": "Merch Gallery",
 
         "common.prev": "Prev",
         "common.next": "Next"
@@ -521,11 +840,14 @@
         "hero.titleA": "把想法整理成",
         "hero.titleB": "有质感的成果。",
         "hero.desc": "内容策划・视觉设计・AI 整合，协助你把杂乱变清晰，把想法变成可用的成果。",
+        "hero.ctaServices": "先看服务与案例",
+        "hero.note": "通常回复很快，先把需求发过来就行。",
 
         "about.title": "品牌介绍",
         "about.subtitle": "About Whitespace +",
         "about.lead1": "留白，不是空白，",
         "about.lead2": "而是让重要的东西留下来。",
+        "about.expand": "展开品牌介绍与服务范围",
         "about.p1": "「留白 Whitespace +」是一个专注于内容整理、结构优化与视觉呈现的创作与顾问型服务品牌。协助品牌、商家与创作者，把零散的想法、模糊的概念与杂乱的素材，整理成清楚、有层次、能被理解、也能被使用的内容成果。",
         "about.p2": "在信息过载的时代，我们不追求过度包装与堆叠，而是回到本质，找出真正重要的信息，留下刚刚好的内容与空间。",
         "about.whatWeDo": "我们在做什么",
@@ -540,7 +862,7 @@
         "about.belief2": "留白，是一种选择，也是一种专业判断。",
 
         "services.title": "核心服务与定价",
-        "services.hint": "点击项目可查看具体案例展示",
+        "services.hint": "点击项目可查看案例（手机可左右滑）",
 
         "svc.food.title": "美食照片修图",
         "svc.food.desc": "专注商用平台视觉优化（Grab / Panda / 社交媒体）<br>色调校正、亮度与对比优化<br>提升食物质感与吸引力<br>适合外卖平台、菜单、宣传用途",
@@ -551,7 +873,7 @@
         "svc.social.priceNote": "/ 8则",
 
         "svc.poster.title": "活动海报设计",
-        "svc.poster.desc": "活动海报设计<br>清楚传达重点，提升活动参与率<br>视觉主题规划<br>活动信息清晰编排<br>可整合线上报名 QR Code",
+        "svc.poster.desc": "清楚传达重点，提升参与率<br>视觉主题规划<br>活动信息清晰编排<br>可整合线上报名 QR Code",
         "svc.poster.priceNote": "/ 起",
 
         "svc.video.title": "定制歌曲与影音",
@@ -567,15 +889,47 @@
         "svc.merch.priceNote": "/ 起",
 
         "contact.title": "准备好开始你的「留白」计划吗？",
+        "contact.note": "把「想做的服务＋素材情况＋希望交付日期」发给我，我会尽快回你可行方案与报价范围。",
         "contact.cta": "WhatsApp 立即咨询",
+        "contact.small": "提醒：越具体越快出方案（例如：张数／尺寸／用途／截止时间）",
+
+        "modal.cta": "用这个服务咨询",
+        "modal.close": "先看看别的",
 
         "modal.food.title": "美食修图 前后对比",
         "modal.food.original": "原图",
         "modal.food.retouch": "修图后 ✨",
 
+        "modal.social.title": "社交贴文｜交付内容",
+        "modal.social.block1Title": "你会拿到什么",
+        "modal.social.block2Title": "最适合你，如果你想要",
+        "modal.social.item1": "• 统一版型（整体一致）",
+        "modal.social.item2": "• 贴文排版与输出尺寸",
+        "modal.social.item3": "• 基本文案（可提供方向）",
+        "modal.social.item4": "• 周／档期排程建议",
+        "modal.social.fit1": "• 风格统一、输出稳定",
+        "modal.social.fit2": "• 不再每次从零开始做图",
+        "modal.social.fit3": "• 让内容更「像品牌」",
+        "modal.social.tip": "建议咨询时提供：品牌类型、客群、想走的风格、参考账号（1-3 个）、每周产出量。",
+
         "modal.poster.title": "活动海报 作品集",
+
         "modal.video.title": "AI 影音作品展示",
         "modal.video.fallback": "无法嵌入？改到 YouTube 观看",
+
+        "modal.web.title": "网页｜流程与交付",
+        "modal.web.block1Title": "流程（简化版）",
+        "modal.web.block2Title": "常见交付",
+        "modal.web.step1": "需求整理（目标、受众、内容清单）",
+        "modal.web.step2": "网站结构 / 线框稿（信息架构）",
+        "modal.web.step3": "视觉风格定稿（字体、配色、版面）",
+        "modal.web.step4": "页面设计与调整（RWD）",
+        "modal.web.deliver1": "• 单页 / 多页 RWD 版型",
+        "modal.web.deliver2": "• 内容结构与文案微调建议",
+        "modal.web.deliver3": "• CTA 动线优化（咨询/表单/WhatsApp）",
+        "modal.web.deliver4": "• 基础 SEO 字段（title/desc/og）",
+        "modal.web.tip": "建议咨询时提供：参考网站（1-3 个）、页数、内容与素材（logo/照片/文字）、以及上线时间目标。",
+
         "modal.merch.title": "图像设计与个性化商品 作品展示",
 
         "common.prev": "上一张",
@@ -593,11 +947,14 @@
         "hero.titleA": "Tukarkan idea menjadi",
         "hero.titleB": "hasil yang kemas.",
         "hero.desc": "Perancangan kandungan, reka bentuk visual, dan integrasi AI — menukar idea yang berserabut menjadi hasil yang jelas dan boleh digunakan.",
+        "hero.ctaServices": "Lihat servis & contoh",
+        "hero.note": "Biasanya balas cepat — hantar keperluan anda bila-bila masa.",
 
         "about.title": "Tentang",
         "about.subtitle": "Whitespace +",
         "about.lead1": "Ruang kosong bukanlah kekosongan —",
         "about.lead2": "ia membuat perkara penting lebih menonjol.",
+        "about.expand": "Buka penerangan & skop",
         "about.p1": "Whitespace + ialah perkhidmatan konsultasi bergaya studio yang fokus pada penstrukturan kandungan, kejelasan, dan penyampaian visual. Kami membantu jenama dan pencipta menukar idea bertaburan serta bahan yang berselerak menjadi hasil yang jelas, tersusun, dan boleh digunakan.",
         "about.p2": "Dalam dunia yang sarat maklumat, kami tidak berlebihan menghias. Kami kembali kepada asas — kenal pasti yang penting dan tinggalkan ruang yang tepat.",
         "about.whatWeDo": "Apa yang kami buat",
@@ -612,18 +969,18 @@
         "about.belief2": "Whitespace ialah pilihan — dan pertimbangan profesional.",
 
         "services.title": "Perkhidmatan & Harga",
-        "services.hint": "Klik item untuk lihat contoh",
+        "services.hint": "Klik untuk lihat contoh (leret pada telefon)",
 
         "svc.food.title": "Retouch Foto Makanan",
-        "svc.food.desc": "Fokus pada pengoptimuman visual untuk platform komersial (Grab / Panda / Media Sosial)<br>Pembetulan warna serta kecerahan & kontras<br>Meningkatkan tekstur dan daya tarikan makanan<br>Sesuai untuk platform penghantaran, menu dan promosi",
+        "svc.food.desc": "Fokus platform komersial (Grab / Panda / Media Sosial)<br>Pembetulan warna, kecerahan & kontras<br>Meningkatkan tekstur dan daya tarikan<br>Sesuai untuk menu & promosi",
         "svc.food.priceNote": "/ bermula 15 foto",
 
         "svc.social.title": "Pakej Pos Media Sosial",
-        "svc.social.desc": "Kandungan konsisten dengan identiti visual yang seragam<br>Reka letak grafik dan reka bentuk visual<br>Penulisan copy asas<br>Pos mingguan berjadual untuk mengekalkan pendedahan jenama",
+        "svc.social.desc": "Kandungan konsisten dengan identiti visual seragam<br>Reka letak grafik & reka bentuk visual<br>Penulisan copy asas<br>Pos mingguan berjadual",
         "svc.social.priceNote": "/ 8 pos",
 
         "svc.poster.title": "Reka Bentuk Poster Acara",
-        "svc.poster.desc": "Reka bentuk poster acara<br>Mesej jelas untuk meningkatkan penyertaan<br>Perancangan tema visual<br>Susun atur info acara yang mudah dibaca<br>Pilihan integrasi QR pendaftaran",
+        "svc.poster.desc": "Mesej jelas untuk meningkatkan penyertaan<br>Perancangan tema visual<br>Susun atur info mudah dibaca<br>Pilihan integrasi QR pendaftaran",
         "svc.poster.priceNote": "/ bermula",
 
         "svc.video.title": "Muzik & Video Tempahan",
@@ -631,24 +988,56 @@
         "svc.video.priceNote": "/ lagu",
 
         "svc.web.title": "Reka Bentuk & Perancangan Laman Web",
-        "svc.web.desc": "Struktur laman dan reka bentuk visual berorientasikan fungsi<br>Perancangan seni bina maklumat<br>Aliran pengguna dan gaya visual<br>Sesuai untuk laman jenama, portfolio peribadi dan laman perkhidmatan",
+        "svc.web.desc": "Struktur fungsi + reka bentuk visual<br>Perancangan seni bina maklumat<br>Aliran pengguna dan gaya visual<br>Sesuai untuk jenama & servis",
         "svc.web.priceNote": "/ bergantung skop",
 
         "svc.merch.title": "Reka Bentuk & Produk Personalisasi",
-        "svc.merch.desc": "Mengembangkan reka bentuk kepada produk fizikal<br>Reka bentuk grafik mengikut gaya yang diminta<br>Sesuai untuk T-shirt, beg tote dan lain-lain<br>Tempahan kuantiti kecil dengan gaya yang jelas",
+        "svc.merch.desc": "Melanjutkan reka bentuk kepada produk fizikal<br>Reka grafik mengikut gaya<br>T-shirt, tote bag dan lain-lain<br>Tempahan kuantiti kecil",
         "svc.merch.priceNote": "/ bermula",
 
         "contact.title": "Sedia untuk mulakan pelan Whitespace anda?",
+        "contact.note": "Hantar “servis + bahan + tarikh siap” — saya akan balas dengan pelan dan julat harga secepat mungkin.",
         "contact.cta": "WhatsApp — Hubungi Sekarang",
+        "contact.small": "Tip: lebih spesifik, lebih cepat (kuantiti / saiz / tujuan / tarikh akhir).",
+
+        "modal.cta": "Tanya servis ini",
+        "modal.close": "Teruskan melihat",
 
         "modal.food.title": "Sebelum & Selepas — Retouch Makanan",
         "modal.food.original": "Asal",
         "modal.food.retouch": "Retouch ✨",
 
+        "modal.social.title": "Pos Sosial｜Deliverables",
+        "modal.social.block1Title": "Apa yang anda akan dapat",
+        "modal.social.block2Title": "Sesuai jika anda mahu",
+        "modal.social.item1": "• Template konsisten",
+        "modal.social.item2": "• Layout + saiz eksport",
+        "modal.social.item3": "• Bantuan copy asas",
+        "modal.social.item4": "• Cadangan jadual pos",
+        "modal.social.fit1": "• Gaya seragam & stabil",
+        "modal.social.fit2": "• Tak perlu mula dari kosong",
+        "modal.social.fit3": "• Nampak lebih “brand”",
+        "modal.social.tip": "Untuk sebut harga cepat: kongsi niche, audiens, gaya, 1–3 rujukan, dan jumlah pos mingguan.",
+
         "modal.poster.title": "Portfolio Poster",
+
         "modal.video.title": "Pameran Muzik & Video AI",
         "modal.video.fallback": "Tak boleh embed? Tonton di YouTube",
-        "modal.merch.title": "Galeri Reka Bentuk & Produk Personalisasi",
+
+        "modal.web.title": "Laman Web｜Proses & Hasil",
+        "modal.web.block1Title": "Proses (ringkas)",
+        "modal.web.block2Title": "Hasil biasa",
+        "modal.web.step1": "Selaraskan keperluan (matlamat, audiens, senarai kandungan)",
+        "modal.web.step2": "Sitemap / wireframe (struktur maklumat)",
+        "modal.web.step3": "Arah visual (font, warna, layout)",
+        "modal.web.step4": "Reka halaman & kemasan (RWD)",
+        "modal.web.deliver1": "• Layout RWD satu / multi-halaman",
+        "modal.web.deliver2": "• Cadangan struktur kandungan & copy",
+        "modal.web.deliver3": "• Optimumkan aliran CTA (inquiry/form/WhatsApp)",
+        "modal.web.deliver4": "• SEO asas (title/desc/og)",
+        "modal.web.tip": "Untuk mula: beri 1–3 rujukan laman, bilangan halaman, bahan (logo/foto/teks), dan sasaran tarikh launch.",
+
+        "modal.merch.title": "Galeri Produk Personalisasi",
 
         "common.prev": "Sebelum",
         "common.next": "Seterusnya"
@@ -662,55 +1051,52 @@
       "ms": { htmlLang: "ms" }
     };
 
+    // WhatsApp message template per language
+    function buildWhatsAppMessage(lang) {
+      const templates = {
+        "zh-Hant": "你好，我想諮詢【服務項目】：\n1) 服務：＿＿＿\n2) 素材狀況：＿＿＿\n3) 張數/頁數：＿＿＿\n4) 用途/平台：＿＿＿\n5) 期望交付日期：＿＿＿\n謝謝！",
+        "zh-Hans": "你好，我想咨询【服务项目】：\n1) 服务：＿＿＿\n2) 素材情况：＿＿＿\n3) 张数/页数：＿＿＿\n4) 用途/平台：＿＿＿\n5) 期望交付日期：＿＿＿\n谢谢！",
+        "en": "Hi! I'd like to inquire about your service:\n1) Service: ____\n2) Materials status: ____\n3) Quantity (photos/pages): ____\n4) Purpose/platform: ____\n5) Preferred deadline: ____\nThanks!",
+        "ms": "Hai! Saya ingin bertanya tentang servis:\n1) Servis: ____\n2) Status bahan: ____\n3) Kuantiti (foto/halaman): ____\n4) Tujuan/platform: ____\n5) Tarikh siap: ____\nTerima kasih!"
+      };
+      return templates[lang] || templates["zh-Hant"];
+    }
+
     function applyI18n(lang) {
       const dict = I18N[lang] || I18N["zh-Hant"];
       document.querySelectorAll("[data-i18n]").forEach(el => {
         const key = el.getAttribute("data-i18n");
         const val = dict[key];
         if (typeof val !== "string") return;
-
-        // allow <br> in some strings
-        el.innerHTML = val;
+        el.innerHTML = val; // allow <br>
       });
 
-      // Update html lang
       document.documentElement.lang = (LANG_META[lang]?.htmlLang) || "zh-TW";
 
-      // Update WhatsApp prefill text per language (optional but professional)
-      const wa = document.getElementById("waLink");
-      if (wa) {
-        const msg = {
-          "zh-Hant": "你好，我想諮詢服務",
-          "en": "Hi, I'd like to ask about your services.",
-          "zh-Hans": "你好，我想咨询服务",
-          "ms": "Hai, saya ingin bertanya tentang perkhidmatan anda."
-        }[lang] || "你好，我想諮詢服務";
+      // WhatsApp links (top and contact)
+      const msg = buildWhatsAppMessage(lang);
+      const href = "https://wa.me/60166262464?text=" + encodeURIComponent(msg);
 
-        wa.href = "https://wa.me/60166262464?text=" + encodeURIComponent(msg);
-      }
+      const wa = document.getElementById("waLink");
+      if (wa) wa.href = href;
+
+      const waTop = document.getElementById("waLinkTop");
+      if (waTop) waTop.href = href;
     }
 
     function setLang(lang) {
       const supported = ["zh-Hant", "en", "zh-Hans", "ms"];
       const target = supported.includes(lang) ? lang : "zh-Hant";
 
-      // Apply text
       applyI18n(target);
 
-      // Toggle button styles
-      const map = {
-        "zh-Hant": "btnZhHant",
-        "en": "btnEn",
-        "zh-Hans": "btnZhHans",
-        "ms": "btnMs"
-      };
+      const map = { "zh-Hant": "btnZhHant", "en": "btnEn", "zh-Hans": "btnZhHans", "ms": "btnMs" };
       supported.forEach(code => {
-        const id = map[code];
-        const btn = document.getElementById(id);
+        const btn = document.getElementById(map[code]);
         if (!btn) return;
         btn.className = (code === target)
-          ? "px-3 py-1 rounded-full bg-slate-900 text-white"
-          : "px-3 py-1 rounded-full bg-slate-200 text-slate-800";
+          ? "px-3 py-1 rounded-full bg-slate-900 text-white focus-ring"
+          : "px-3 py-1 rounded-full bg-slate-200 text-slate-800 focus-ring";
       });
 
       localStorage.setItem("lang", target);
@@ -752,47 +1138,104 @@
       if (count) count.innerText = `${merchIdx + 1} / ${merchList.length}`;
     }
 
-    // ====== Modal control ======
+    // ====== Modal control (A11y focus trap) ======
     const YT_EMBED_URL = "https://www.youtube-nocookie.com/embed/3y2XqzEB_1Y";
+    let lastFocusedEl = null;
+    let activeModalId = null;
 
-    function openModal(id) {
+    function getFocusable(container) {
+      return Array.from(container.querySelectorAll(
+        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+      )).filter(el => !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length));
+    }
+
+    function openModal(id, triggerEl) {
       const modal = document.getElementById(id);
       if (!modal) return;
 
-      modal.style.display = "block";
-      document.body.style.overflow = "hidden";
+      lastFocusedEl = triggerEl || document.activeElement;
+      activeModalId = id;
+
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("no-scroll");
 
       if (id === "modalVideo") {
         const iframe = document.getElementById("ytPlayer");
         if (iframe) iframe.src = YT_EMBED_URL + "?autoplay=1";
       }
+
+      // Focus first focusable
+      const content = modal.querySelector(".modal-content");
+      const focusables = content ? getFocusable(content) : [];
+      if (focusables.length) focusables[0].focus();
     }
 
     function closeModal(id) {
       const modal = document.getElementById(id);
       if (!modal) return;
 
-      modal.style.display = "none";
-      document.body.style.overflow = "auto";
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("no-scroll");
 
       if (id === "modalVideo") {
         const iframe = document.getElementById("ytPlayer");
         if (iframe) iframe.src = "";
       }
+
+      activeModalId = null;
+
+      // restore focus
+      if (lastFocusedEl && typeof lastFocusedEl.focus === "function") {
+        lastFocusedEl.focus();
+      }
+      lastFocusedEl = null;
     }
 
+    function jumpToContactAndClose(id) {
+      closeModal(id);
+      // Let modal close apply first, then jump
+      setTimeout(() => {
+        const el = document.getElementById("contact");
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+    }
+
+    // Click on backdrop to close
     window.addEventListener("click", function (event) {
       if (event.target && event.target.classList && event.target.classList.contains("modal")) {
         closeModal(event.target.id);
       }
     });
 
+    // Global keydown: Escape + focus trap Tab
     window.addEventListener("keydown", function (event) {
-      if (event.key !== "Escape") return;
-      ["modalFood", "modalPoster", "modalVideo", "modalMerch"].forEach(id => {
-        const el = document.getElementById(id);
-        if (el && el.style.display === "block") closeModal(id);
-      });
+      if (!activeModalId) return;
+      const modal = document.getElementById(activeModalId);
+      if (!modal) return;
+
+      if (event.key === "Escape") {
+        closeModal(activeModalId);
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const content = modal.querySelector(".modal-content");
+      if (!content) return;
+
+      const focusables = getFocusable(content);
+      if (!focusables.length) return;
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     });
   </script>
 </body>
