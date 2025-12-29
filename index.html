@@ -52,7 +52,8 @@
 <body class="bg-white text-slate-800">
 
   <!-- Language Toggle -->
-  <div class="fixed top-4 right-6 z-[60] flex gap-2 text-sm font-medium">
+<!-- Desktop language toggle -->
+  <div class="hidden md:flex md:fixed md:top-4 md:right-6 z-[60] gap-2 text-sm font-medium">
     <button id="btnZhHant" onclick="setLang('zh-Hant')" class="px-3 py-1 rounded-full bg-slate-900 text-white focus-ring">繁中</button>
     <button id="btnEn" onclick="setLang('en')" class="px-3 py-1 rounded-full bg-slate-200 text-slate-800 focus-ring">EN</button>
     <button id="btnZhHans" onclick="setLang('zh-Hans')" class="px-3 py-1 rounded-full bg-slate-200 text-slate-800 focus-ring">简中</button>
@@ -78,12 +79,21 @@
           <span data-i18n="nav.contact">立即諮詢</span>
         </a>
       </div>
-
-      <!-- Mobile quick CTA -->
+  <!-- Mobile quick CTA -->
       <a href="#contact" class="md:hidden px-4 py-2 bg-slate-900 text-white rounded-full text-sm font-semibold hover:bg-blue-600 transition focus-ring">
         <span data-i18n="nav.contact">立即諮詢</span>
       </a>
     </div>
+
+    <!-- Mobile language toggle (inside navbar) -->
+    <div class="md:hidden px-6 pb-4 -mt-1 flex justify-end gap-2 text-xs font-medium">
+      <button id="btnZhHant_m" onclick="setLang('zh-Hant')" class="px-2.5 py-1 rounded-full bg-slate-900 text-white focus-ring">繁中</button>
+      <button id="btnEn_m" onclick="setLang('en')" class="px-2.5 py-1 rounded-full bg-slate-200 text-slate-800 focus-ring">EN</button>
+      <button id="btnZhHans_m" onclick="setLang('zh-Hans')" class="px-2.5 py-1 rounded-full bg-slate-200 text-slate-800 focus-ring">简中</button>
+      <button id="btnMs_m" onclick="setLang('ms')" class="px-2.5 py-1 rounded-full bg-slate-200 text-slate-800 focus-ring">BM</button>
+    </div>
+
+  </nav>
   </nav>
 
   <!-- HERO -->
@@ -1090,15 +1100,22 @@
 
       applyI18n(target);
 
-      const map = { "zh-Hant": "btnZhHant", "en": "btnEn", "zh-Hans": "btnZhHans", "ms": "btnMs" };
-      supported.forEach(code => {
-        const btn = document.getElementById(map[code]);
-        if (!btn) return;
-        btn.className = (code === target)
-          ? "px-3 py-1 rounded-full bg-slate-900 text-white focus-ring"
-          : "px-3 py-1 rounded-full bg-slate-200 text-slate-800 focus-ring";
-      });
+  const maps = {
+  "zh-Hant": ["btnZhHant", "btnZhHant_m"],
+  "en": ["btnEn", "btnEn_m"],
+  "zh-Hans": ["btnZhHans", "btnZhHans_m"],
+  "ms": ["btnMs", "btnMs_m"]
+};
 
+supported.forEach(code => {
+  (maps[code] || []).forEach(id => {
+    const btn = document.getElementById(id);
+    if (!btn) return;
+    btn.className = (code === target)
+      ? "px-2.5 py-1 rounded-full bg-slate-900 text-white focus-ring text-xs font-medium"
+      : "px-2.5 py-1 rounded-full bg-slate-200 text-slate-800 focus-ring text-xs font-medium";
+  });
+});
       localStorage.setItem("lang", target);
     }
 
